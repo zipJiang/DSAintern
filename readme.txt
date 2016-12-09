@@ -1,3 +1,3 @@
 This is a group project using cluster algorithm (TBD).
 
-All code are original.
+All codes are original.
