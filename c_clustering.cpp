@@ -16,15 +16,7 @@ int main()
 		}
 	}
 
-	PCA(input_matrix);
-	//Reading Test.
-	for(int i = 0; i != 2016; ++i) {
-		for(int j = 0; j != 10; ++j) {
-			cout<<input_matrix[j][i]<<' ';
-		}
-		cout<<endl;
-	}
-	
 	//pca
+	PCA(input_matrix);
 	return 0;
 }

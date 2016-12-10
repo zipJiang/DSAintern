@@ -16,7 +16,6 @@ with open("input.txt", 'r') as f:
             data[j][i] = float(temp[j])
         i += 1
 
-np.random.seed(0)
 pca = PCA(n_components=50)
 data_new = pca.fit_transform(data)
 k_means = cluster.KMeans(n_clusters=2)
