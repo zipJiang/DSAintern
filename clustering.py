@@ -8,7 +8,7 @@ from sklearn.decomposition import PCA
 # from sklearn.preprocessing import StandardScaler
 
 data = np.zeros((10, 2016))
-with open("../input.txt", 'r') as f:
+with open("input.txt", 'r') as f:
     i = 0
     for line in f:
         temp = re.split("\s", line)
