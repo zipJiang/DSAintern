@@ -53,6 +53,14 @@ double r_determiner(double m) {
 	cout<<"left = "<<left<<" "<<"right = "<<right<<" "<<"ad = "<<ave<<endl;
 	return mid;
 }
+
+void cluster(int no) {
+	if(group[no] == center_1 || group[no] == center_2)
+		return ;
+	cluster(group[no]);
+	group[no] = group[group[no]];
+	return ;
+}
 int main()
 {
 	srand(time(NULL));
@@ -123,10 +131,48 @@ int main()
 	}
 
 	//First Version: write to output.txt for matplotlib to plot a graph testing.
-	fstream fs;
-	fs.open("output.txt", ios::out);
+	//fstream fs;
+	//fs.open("output.txt", ios::out);
+	//for(int i = 0; i != N; ++i) {
+		//fs<<density[i]<<' '<<mind[i]<<endl;
+	//}
+	
+	//Second Version: set centers.
+	int max_density = 0;
+	int max_density_no = 0;
 	for(int i = 0; i != N; ++i) {
-		fs<<density[i]<<' '<<mind[i]<<endl;
+		if(max_density < density[i]) {
+			max_density = density[i];
+			max_density_no = i;
+		}
 	}
+	center_1 = max_density_no;
+	int second_no = 0;
+	int max_product = 0;
+	for(int i = 0; i != N; ++i) {
+		if(center_1 == i)
+			continue;
+		int p = density[i] / (double)density[center_1] * mind[i] / mind[center_1];
+		if(p > max_product) {
+			max_product = p;
+			second_no = i;
+		}
+		
+	}
+	center_2 = second_no;
+	
+	//clustering
+	for(int i = 0; i != N; ++i) {
+		if(group[i] == center_1 || group[i] == center_2) {
+			continue;
+		}
+		cluster(i);
+	}
+
+	//output
+	for(int i = 0; i < N / 25; ++i) {
+		cout<<group[i]<<' ';
+	}
+	cout<<endl;
 	return 0;
 }
