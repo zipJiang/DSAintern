@@ -2,20 +2,25 @@
 #include<cstdio>
 #include<cmath>
 #include<cstring>
+#include<string>
+#include<sstream>
 using namespace std;
-double data[10][2016];
+double data[23][2016];
 double center_1[2016];
 double center_2[2016];
-int result[10] = {};
-int prev_result[10] = {};
+int result[23] = {};
+int prev_result[23] = {};
+int N = 0;
+
 bool e(int *a, int *b) {
 	bool flag = true;
-	for(int i = 0; i != 10; ++i) {
+	for(int i = 0; i != N; ++i) {
 		if(a[i] != b[i])
 			flag = false;
 	}
 	return flag;
 }
+
 double dist(int no, double *center) {
 	double distance = 0;
 	for(int i = 0; i != 2016; ++i) {
@@ -28,7 +33,7 @@ void calc_center() {
 	int g_count[2] = {0, 0};
 	memset(center_1, 0, sizeof(center_1));
 	memset(center_2, 0, sizeof(center_2));
-	for(int i = 0; i != 10; ++i) {
+	for(int i = 0; i != N; ++i) {
 		++g_count[result[i] - 1];
 		switch(result[i]) {
 			case 1:
@@ -49,16 +54,23 @@ void calc_center() {
 	}
 	return ;
 }
+
 int main()
 {
 	freopen("input.txt", "r", stdin);
+	string in;
 	for(int i = 0; i != 2016; ++i) {
-		for(int j = 0; j != 10; ++j) {
-			cin>>data[j][i];
+		getline(cin, in);
+		istringstream is(in);
+		double t;
+		int number = 0;
+		while(is>>t) {
+			data[number++][i] = t;
 		}
+		N = number;
 	}
 	//preprocessing
-	for(int i = 0; i != 10; ++i) {
+	for(int i = 0; i != N; ++i) {
 		double temp = 0;
 		for(int j = 0; j != 2016; ++j) {
 			temp += data[i][j];
@@ -73,23 +85,25 @@ int main()
 		center_2[i] = data[1][i];
 	}
 	//initialization
-	for(int i = 0; i != 10; ++i) {
+	for(int i = 0; i != N; ++i) {
 		if(dist(i, center_1) <= dist(i, center_2))
 			result[i] = 1;
 		else result[i] = 2;
 	}
+
+	//The while loop terminating condition need to be modified.
 	while(!e(result, prev_result)) {
-		for(int i = 0; i != 10; ++i)
+		for(int i = 0; i != N; ++i)
 			prev_result[i] = result[i];
 		calc_center();
-		for(int i = 0; i != 10; ++i) {
+		for(int i = 0; i != N; ++i) {
 			if(dist(i, center_1) <= dist(i, center_2))
 				result[i] = 1;
 			else result[i] = 2;
 		}
 	}
 
-	for(int i = 0; i != 10; ++i)
+	for(int i = 0; i != N; ++i)
 		cout<<result[i]<<' ';
 	cout<<endl;
 	return 0;
