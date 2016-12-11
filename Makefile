@@ -3,7 +3,7 @@ CFLAGS = -g -w
 all: c_cluster brutal_cluster SFDP_cluster
 
 c_cluster: c_clustering.cpp pca.cpp
-	$(CC) $(CFLAGS) c_clustering.cpp pca.cpp -o c_cluster
+	$(CC) $(CFLAGS) c_clustering.cpp pca.cpp k_means.cpp eigen/*.cpp -o c_cluster
 
 brutal_cluster:
 	$(CC) $(CFLAGS) brutal_clustering.cpp -o brutal_cluster

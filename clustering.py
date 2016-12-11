@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 import re
 # import matplotlib.pyplot as plt
 
@@ -21,3 +22,11 @@ data_new = pca.fit_transform(data)
 k_means = cluster.KMeans(n_clusters=2)
 k_means.fit(data_new)
 print(k_means.labels_)
+
+graph = np.zeros((48, 42))
+for w in range(10):
+	for x in range(48):
+		for y in range(42):
+			graph[x][y] = data[w][x * 42 + y]
+	plt.imshow(graph, cmap='gray')
+	plt.show()
