@@ -6,10 +6,11 @@
 #define _PCA_GUARD
 #define data_num 10
 #define feature_num 2016
-#define RESERVED 10
+#define RESERVED 2
 
 #include <cmath>
 #include <iostream>
+#include <fstream>
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>

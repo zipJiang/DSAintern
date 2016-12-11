@@ -5,8 +5,8 @@ import re
 
 with open("output.txt", 'r') as f:
     i = 0
-    x = np.arange(0, 250)
-    y = np.arange(0, 250)
+    x = np.arange(0, 10)
+    y = np.arange(0, 10)
     for line in f:
         temp = re.split("\s", line)
         x[i] = float(temp[0])

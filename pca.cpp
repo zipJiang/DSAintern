@@ -52,16 +52,16 @@ void covar_calc(matrix subtracted) {
 	//START WORKING FROM HERE AFTERNOON, copy eignevector V back from the static array of typdef struct.
 	for(int i = 0; i != feature_num; ++i) {
 		for(int j = 0; j != feature_num; ++j) {
-			if(j < RESERVED)
-				eigenvector[i][j] = V[i * feature_num + j].re;
-			else
-				eigenvector[i][j] = 0;
+			eigenvector[i][j] = V[i * feature_num + j].re;
+			//if(j < 5)
+				//std::cout<<eigenvector[i][j]<<' ';
 		}
+		//std::cout<<std::endl;
 	}
 	//Sort the vectors to get the largest eigenvalues.
 	for(int i = 0; i != RESERVED; ++i) {
 		for(int j = feature_num - 1; j != i; --j) {
-			if(std::abs(D[j * feature_num + j].re) > std::abs(D[(j - 1) * feature_num + j - 1].re)) {
+			if(std::abs(D[j * feature_num + j].re) < std::abs(D[(j - 1) * feature_num + j - 1].re)) {
 				//exchange j and j - 1. both in vectors and D
 				double temp = D[j * feature_num + j].re;
 				D[j * feature_num + j].re = D[(j - 1) * feature_num + j - 1].re;
@@ -89,5 +89,9 @@ void PCA(matrix origin) {
 	std::cout<<"normalization success, continuing...."<<std::endl;
 	covar_calc(origin);
 	std::cout<<"covar calculated successfully, pca terminating...."<<std::endl;
+	std::fstream fs("output.txt", std::ios::out);
+	for(int i = 0; i != data_num; ++i) {
+		fs<<final_untransposed[i][0]<<' '<<final_untransposed[i][1]<<std::endl;
+	}
 	return ;
 }
