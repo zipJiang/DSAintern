@@ -60,16 +60,27 @@ int main()
 {
 	freopen("input.txt", "r", stdin);
 	string in;
-	for(int i = 0; i != 2016; ++i) {
-		getline(cin, in);
+	/*
+	 *for(int i = 0; i != 2016; ++i) {
+	 *    getline(cin, in);
+	 *    istringstream is(in);
+	 *    double t;
+	 *    int number = 0;
+	 *    while(is>>t) {
+	 *        data[number++][i] = t;
+	 *    }
+	 *    N = number;
+	 *}
+	 */
+	int ls = 0;
+	while(getline(cin, in)) {
 		istringstream is(in);
-		double t;
-		int number = 0;
-		while(is>>t) {
-			data[number++][i] = t;
+		for(int i = 0; i != 2016; ++i) {
+			is>>data[ls][i];
 		}
-		N = number;
+		++ls;
 	}
+	N = ls;
 	//preprocessing
 	for(int i = 0; i != N; ++i) {
 		double temp = 0;
@@ -103,9 +114,24 @@ int main()
 			else result[i] = 2;
 		}
 	}
-
+	int r[2][23];
+	int g[2] = {};
+	fstream fs("out.txt", fstream::out);
 	for(int i = 0; i != N; ++i)
 		cout<<result[i]<<' ';
 	cout<<endl;
+	for(int i = 0; i != N; ++i) {
+		if(result[i] == 1)
+			r[0][g[0]++] = i;
+		else
+			r[1][g[1]++] = i;
+	}
+	for(int i = 0; i != 2; ++i) {
+		fs<<"#"<<i<<":";
+		for(int j = 0; j != g[i]; ++j) {
+			fs<<r[0][j]<<' ';
+		}
+		fs<<endl;
+	}
 	return 0;
 }

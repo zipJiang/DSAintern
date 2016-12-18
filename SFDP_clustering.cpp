@@ -67,21 +67,32 @@ int main()
 	freopen("input.txt", "r", stdin);
 	string in;
 	//data input
-	for(int i = 0; i != 2016; ++i) {
-		getline(cin, in);
+/*
+ *    for(int i = 0; i != 2016; ++i) {
+ *        getline(cin, in);
+ *        istringstream is(in);
+ *        double t = 0;
+ *        int number = 0;
+ *        while(is>>t) {
+ *            data[number++][i] = t;
+ *        }
+ *        N = number;
+ *
+ *        //amplify data with disturbance.
+ *        for(int k = N; k != 25 * N; ++k) {
+ *            data[k][i] = data[k % N][i] + rand() % 101 - 50;
+ *        }
+ *    }
+ */
+	int ls = 0;
+	while(getline(cin, in)) {
 		istringstream is(in);
-		double t = 0;
-		int number = 0;
-		while(is>>t) {
-			data[number++][i] = t;
+		for(int i = 0; i != 2016; ++i) {
+			is>>data[ls][i];
 		}
-		N = number;
-
-		//amplify data with disturbance.
-		for(int k = N; k != 25 * N; ++k) {
-			data[k][i] = data[k % N][i] + rand() % 101 - 50;
-		}
+		++ls;
 	}
+	N = ls;
 	N *= 25;
 	//Normalization
 	for(int i = 0; i != N; ++i) {
@@ -170,9 +181,24 @@ int main()
 	}
 
 	//output
+	int r[2][23];
+	int g[2] = {};
 	for(int i = 0; i < N / 25; ++i) {
 		cout<<group[i]<<' ';
+		if(group[i] == center_1)
+			r[0][g[0]++] = i;
+		else
+			r[1][g[1]++] = i;
 	}
 	cout<<endl;
+
+	fstream fs("out.txt", fstream::out);
+	for(int i = 0; i != 2; ++i) {
+		fs<<"#"<<i<<":";
+		for(int j = 0; j != N / 25; ++j) {
+			fs<<r[i][j]<<' ';
+		}
+		fs<<endl;
+	}
 	return 0;
 }
