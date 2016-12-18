@@ -6,5 +6,6 @@
 #include<cstring>
 #endif
 
-extern int cluster[2 * data_num];
+extern int cluster[2 * 20];
+extern int data_num;
 void k_means();

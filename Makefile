@@ -14,4 +14,5 @@ SFDP_cluster:
 clean:
 	rm *cluster
 	rm -rf *.dSYM
-	#rm output.txt
+	rm out.txt
+	rm output.txt

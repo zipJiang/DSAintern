@@ -6,7 +6,7 @@
 double average[feature_num];
 double covar[feature_num * feature_num];
 double eigenvector[feature_num][feature_num];
-double final_untransposed[data_num][RESERVED];
+double final_untransposed[20][RESERVED];
 
 void subtract_average(matrix origin) {
 	for(int i = 0; i != feature_num; ++i) {

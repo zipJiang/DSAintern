@@ -1,9 +1,9 @@
 #include "k_means.h"
 
-int cluster[2 * data_num] = {};
-int prev_result[2 * data_num] = {};
+int cluster[2 * 20] = {};
+int prev_result[2 * 20] = {};
 double center[2][RESERVED];
-double dist_matrix[data_num][data_num];
+double dist_matrix[20][20];
 double max_dist = 0;
 int max_dist_pt[2] = {};
 

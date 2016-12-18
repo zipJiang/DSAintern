@@ -4,6 +4,7 @@
 #include<cstring>
 #include<string>
 #include<sstream>
+#include<fstream>
 using namespace std;
 double data[23][2016];
 double center_1[2016];

@@ -4,7 +4,6 @@
  */
 #ifndef _PCA_GUARD
 #define _PCA_GUARD
-#define data_num 10
 #define feature_num 2016
 #define RESERVED 2
 
@@ -25,10 +24,11 @@
 
 #endif
 
+extern int data_num;
 extern double average[feature_num];
 extern double covar[feature_num * feature_num];
 extern double eigenvector[feature_num][feature_num];
-extern double final_untransposed[data_num][RESERVED];
+extern double final_untransposed[20][RESERVED];
 typedef double matrix[][feature_num];
 void subtract_average(matrix origin);
 void covar_calc(matrix subtracted);

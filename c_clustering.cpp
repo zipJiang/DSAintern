@@ -1,9 +1,12 @@
 #include<iostream>
+#include<fstream>
+#include<sstream>
 #include<cstdio>
 #include "pca.h"
 #include "k_means.h"
 using namespace std;
-double input_matrix[data_num][feature_num];
+int data_num = 0;
+double input_matrix[20][feature_num];
 int main()
 {
 	if(!freopen("input.txt", "r", stdin)) {
@@ -11,10 +14,21 @@ int main()
 		cerr<<"Open failed."<<endl;
 		cerr<<"Exiting...."<<endl;
 	}
-	for(int i = 0; i != feature_num; ++i) {
-		for(int j = 0; j != data_num; ++j) {
-			cin>>input_matrix[j][i];
+	/*
+	 *for(int i = 0; i != feature_num; ++i) {
+	 *    for(int j = 0; j != data_num; ++j) {
+	 *        cin>>input_matrix[j][i];
+	 *    }
+	 *}
+	 */
+	string line;
+	int i = 0;
+	while(getline(cin, line)) {
+		istringstream is(line);
+		for(int j = 0; j != feature_num; ++j) {
+			is>>input_matrix[i][j];
 		}
+		++i;
 	}
 
 	//pca
@@ -24,10 +38,22 @@ int main()
 	k_means();
 
 	cout<<"k_means finished."<<endl;
-
+	int grp[2][20];
+	int g[2] ={};
+	fstream fs("out.txt", fstream::out);
 	for(int i = 0; i != data_num; ++i) {
-		cout<<cluster[i]<<' ';
+		grp[cluster[i]][g[cluster[i]]++] = i;
 	}
-	cout<<endl;
+	for(int i = 0; i != 2; ++i) {
+		cout<<"group #"<<i<<":";
+		fs<<"group #"<<i<<":";
+		for(int j = 0; j != g[i]; ++j) {
+			cout<<grp[i][j]<<' ';
+			fs<<grp[i][j]<<' ';
+		}
+		cout<<endl;
+		fs<<endl;
+	}
+	fs.close();
 	return 0;
 }
